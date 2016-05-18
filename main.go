@@ -67,6 +67,8 @@ func main() {
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
 
+	LoadRefText()
+
 	p := NewPopulationFromFile()
 
 	p.Report()
