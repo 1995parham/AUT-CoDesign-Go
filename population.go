@@ -29,7 +29,7 @@ func (p *Population) Less(i, j int) bool {
 func (p *Population) Crossover() {
 	for i := 0; i < 16; i += 2 {
 		p.Kromosoms[i+16], p.Kromosoms[i+16+1] =
-			Crossover(p.Kromosoms[i], p.Kromosoms[i+1])
+			Crossover(&p.Kromosoms[i], &p.Kromosoms[i+1])
 	}
 }
 
