@@ -9,9 +9,23 @@
  */
 package main
 
+import (
+	"bytes"
+)
+
 type Kromosom struct {
 	Gen     [16]int
 	Fitness uint64
+}
+
+func (k *Kromosom) Permute() string {
+	var text bytes.Buffer
+
+	for i := 0; i < len(RefText); i++ {
+		index := (i - (i % 16)) + (k.Gen[i%16] - 1)
+		text.WriteByte(RefText[index])
+	}
+	return text.String()
 }
 
 func (k *Kromosom) CalculateFitness(s string) {
