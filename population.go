@@ -10,6 +10,9 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"os"
 	"sort"
 )
 
@@ -54,6 +57,25 @@ func (p *Population) Next() {
 	p.Mutate()
 }
 
+func (p *Population) Report() {
+	for i := 0; i < 32; i++ {
+		log.Printf("-- %d: %v\n", i, p.Kromosoms[i].Gen)
+	}
+}
+
 func NewPopulationFromFile() *Population {
-	return nil
+	f, err := os.Open("keys.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	p := &Population{}
+
+	for i := 0; i < 32; i++ {
+		for j := 0; j < 16; j++ {
+			fmt.Fscanf(f, "%d", &p.Kromosoms[i].Gen[j])
+		}
+	}
+
+	return p
 }
