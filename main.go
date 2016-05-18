@@ -66,4 +66,10 @@ func main() {
 	s3 = uint8(buf[0])
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
+
+	p := NewPopulationFromFile()
+
+	for i := 0; i < 30; i++ {
+		p.Next()
+	}
 }
