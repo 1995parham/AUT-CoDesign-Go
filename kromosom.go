@@ -10,6 +10,6 @@
 package main
 
 type Kromosom struct {
-	gen     [16]int
-	fitness uint64
+	Gen     [16]int
+	Fitness uint64
 }
