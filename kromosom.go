@@ -87,8 +87,8 @@ func (k *Kromosom) Mutate() {
 }
 
 func Crossover(k1 *Kromosom, k2 *Kromosom) (Kromosom, Kromosom) {
-	var d1 Kromosom
-	var d2 Kromosom
+	var d1 Kromosom = Kromosom{}
+	var d2 Kromosom = Kromosom{}
 
 	var d1i [16]bool
 	var d2i [16]bool
