@@ -14,6 +14,42 @@ type Kromosom struct {
 	Fitness uint64
 }
 
+func (k *Kromosom) CalculateFitness(s string) {
+	var T [27][27]uint64
+
+	k.Fitness = 0
+
+	for i := 0; i < len(s)-1; i++ {
+		var a, b int
+
+		if s[i] == ' ' {
+			a = 26
+		} else {
+			a = int(s[i] - 'a')
+		}
+
+		if s[i+1] == ' ' {
+			b = 26
+		} else {
+			b = int(s[i+1] - 'a')
+		}
+
+		T[a][b]++
+	}
+
+	for i := 0; i < 27; i++ {
+		for j := 0; j < 27; j++ {
+			tmp := (T[i][j] * 0x10000) - E[i][j]
+
+			if tmp > 0 {
+				k.Fitness += tmp
+			} else {
+				k.Fitness -= tmp
+			}
+		}
+	}
+}
+
 func (k *Kromosom) Mutate() {
 	/* Get p from LFSR2 */
 	var p uint8
