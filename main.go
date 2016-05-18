@@ -29,6 +29,11 @@ func main() {
 	n := 0
 	buf := make([]byte, 128)
 
+	/* Initiate LFSRs */
+	dlfsr81 = NewDummyLFSR8()
+	dlfsr82 = NewDummyLFSR8()
+	dlfsr83 = NewDummyLFSR8()
+
 	/* Read seed number 1 */
 	var s1 uint8
 	n, err = s.Read(buf)
@@ -40,6 +45,7 @@ func main() {
 	}
 	s1 = uint8(buf[0])
 	log.Printf("%d", s1)
+	dlfsr81.Init(0, s1)
 
 	/* Read seed number 2 */
 	var s2 uint8
@@ -49,6 +55,7 @@ func main() {
 	}
 	s2 = uint8(buf[0])
 	log.Printf("%d", s2)
+	dlfsr82.Init(0, s2)
 
 	/* Read seed number 3 */
 	var s3 uint8
@@ -58,4 +65,5 @@ func main() {
 	}
 	s3 = uint8(buf[0])
 	log.Printf("%d", s3)
+	dlfsr83.Init(0, s3)
 }
