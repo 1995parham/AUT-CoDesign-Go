@@ -9,6 +9,10 @@
  */
 package main
 
+import (
+	"sort"
+)
+
 type Population struct {
 	Kromosoms [32]Kromosom
 }
@@ -37,4 +41,19 @@ func (p *Population) Mutate() {
 	for i := 0; i < 32; i++ {
 		p.Kromosoms[i].Mutate()
 	}
+}
+
+func (p *Population) Next() {
+	for i := 0; i < 32; i++ {
+		go p.Kromosoms[i].Evaluate()
+	}
+
+	sort.Sort(p)
+
+	p.Crossover()
+	p.Mutate()
+}
+
+func NewPopulationFromFile() *Population {
+	return nil
 }
