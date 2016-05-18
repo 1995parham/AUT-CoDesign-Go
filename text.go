@@ -9,4 +9,17 @@
  */
 package main
 
+import (
+	"io/ioutil"
+)
+
 var RefText string
+
+func LoadRefText() {
+	dat, err := ioutil.ReadFile("refText.txt")
+	if err != nil {
+		panic(err)
+	}
+
+	RefText = string(dat)
+}
