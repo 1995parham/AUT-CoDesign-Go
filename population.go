@@ -14,6 +14,7 @@ import (
 	"log"
 	"os"
 	"sort"
+	"sync"
 )
 
 type Population struct {
@@ -47,9 +48,16 @@ func (p *Population) Mutate() {
 }
 
 func (p *Population) Next() {
+	var w sync.WaitGroup
 	for i := 0; i < 32; i++ {
-		go p.Kromosoms[i].Evaluate()
+		w.Add(1)
+		go func() {
+			str := p.Kromosoms[i].Permute()
+			p.Kromosoms[i].CalculateFitness(str)
+			w.Done()
+		}()
 	}
+	w.Wait()
 
 	sort.Sort(p)
 
@@ -73,8 +81,13 @@ func NewPopulationFromFile() *Population {
 
 	for i := 0; i < 32; i++ {
 		for j := 0; j < 16; j++ {
-			fmt.Fscanf(f, "%d", &p.Kromosoms[i].Gen[j])
+			_, err := fmt.Fscanf(f, "%d", &p.Kromosoms[i].Gen[j])
+
+			if err != nil {
+				panic(err)
+			}
 		}
+		fmt.Fscanf(f, "\n")
 	}
 
 	return p
