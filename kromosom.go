@@ -67,10 +67,12 @@ func (k *Kromosom) CalculateFitness(s string) {
 func (k *Kromosom) Mutate() {
 	/* Get p from LFSR2 */
 	var p uint8
+	p = dlfsr82.Next()
 
 	if p < 64 {
 		/* Get indicator from LFSR3 */
 		var indicator uint8
+		indicator = dlfsr83.Next()
 
 		a := indicator & 0x0F
 		b := indicator >> 4
@@ -88,6 +90,7 @@ func Crossover(k1 *Kromosom, k2 *Kromosom) (Kromosom, Kromosom) {
 
 	var alpha uint8
 	/* Get alpha from LFSR1 */
+	alpha = dlfsr81.Next()
 	alpha = alpha & 0x0F
 
 	for i := 0; i < int(alpha); i++ {
