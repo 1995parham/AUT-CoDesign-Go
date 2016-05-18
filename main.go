@@ -69,6 +69,8 @@ func main() {
 
 	p := NewPopulationFromFile()
 
+	p.Report()
+
 	for i := 0; i < 30; i++ {
 		p.Next()
 	}
