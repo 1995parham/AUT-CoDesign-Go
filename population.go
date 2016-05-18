@@ -62,6 +62,8 @@ func (p *Population) Next() {
 
 	sort.Sort(p)
 
+	p.Report()
+
 	p.Crossover()
 	p.Mutate()
 
@@ -71,7 +73,7 @@ func (p *Population) Next() {
 func (p *Population) Report() {
 	log.Printf("==== %d ====", p.Generation)
 	for i := 0; i < 32; i++ {
-		log.Printf("-- %d: %v\n", i, p.Kromosoms[i].Gen)
+		log.Printf("-- %d: %v ** %v", i, p.Kromosoms[i].Gen, p.Kromosoms[i].Fitness)
 	}
 }
 
