@@ -36,11 +36,6 @@ func Crossover(k1 *Kromosom, k2 *Kromosom) (Kromosom, Kromosom) {
 	var d1i [16]bool
 	var d2i [16]bool
 
-	for i := 0; i < 16; i++ {
-		d1i[i] = false
-		d2i[i] = false
-	}
-
 	var alpha uint8
 	/* Get alpha from LFSR1 */
 	alpha = alpha & 0x0F
