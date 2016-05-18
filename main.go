@@ -69,6 +69,8 @@ func main() {
 
 	LoadRefText()
 
+	LoadEtalon()
+
 	p := NewPopulationFromFile()
 
 	p.Report()
