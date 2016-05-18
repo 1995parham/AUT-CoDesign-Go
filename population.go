@@ -25,3 +25,13 @@ func (p *Population) Swap(i, j int) {
 func (p *Population) Less(i, j int) bool {
 	return p.Kromosoms[i].Fitness < p.Kromosoms[j].Fitness
 }
+
+func (p *Population) Crossover() {
+
+}
+
+func (p *Population) Mutate() {
+	for i := 0; i < 32; i++ {
+		p.Kromosoms[i].Mutate()
+	}
+}
