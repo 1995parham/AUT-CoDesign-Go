@@ -75,8 +75,7 @@ func main() {
 
 	p.Report()
 
-	for i := 0; i < 30; i++ {
+	for i := 0; i < 2; i++ {
 		p.Next()
-		p.Report()
 	}
 }
