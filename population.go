@@ -18,7 +18,8 @@ import (
 )
 
 type Population struct {
-	Kromosoms [32]Kromosom
+	Kromosoms  [32]Kromosom
+	Generation int
 }
 
 func (p *Population) Len() int {
@@ -63,9 +64,12 @@ func (p *Population) Next() {
 
 	p.Crossover()
 	p.Mutate()
+
+	p.Generation++
 }
 
 func (p *Population) Report() {
+	log.Printf("==== %d ====", p.Generation)
 	for i := 0; i < 32; i++ {
 		log.Printf("-- %d: %v\n", i, p.Kromosoms[i].Gen)
 	}
