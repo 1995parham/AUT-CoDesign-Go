@@ -51,11 +51,11 @@ func (p *Population) Next() {
 	var w sync.WaitGroup
 	for i := 0; i < 32; i++ {
 		w.Add(1)
-		go func() {
+		go func(i int) {
 			str := p.Kromosoms[i].Permute()
 			p.Kromosoms[i].CalculateFitness(str)
 			w.Done()
-		}()
+		}(i)
 	}
 	w.Wait()
 
