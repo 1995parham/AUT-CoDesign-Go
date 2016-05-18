@@ -13,7 +13,6 @@ package main
 import (
 	"github.com/tarm/serial"
 	"log"
-	"strconv"
 )
 
 func main() {
