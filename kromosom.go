@@ -18,6 +18,11 @@ type Kromosom struct {
 	Fitness uint64
 }
 
+func (k *Kromosom) Evaluate() {
+	str := k.Permute()
+	k.CalculateFitness(str)
+}
+
 func (k *Kromosom) Permute() string {
 	var text bytes.Buffer
 
