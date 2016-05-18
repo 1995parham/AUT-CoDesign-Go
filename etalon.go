@@ -14,7 +14,7 @@ import (
 	"os"
 )
 
-var E [27][27]uint64
+var E [27][27]int64
 
 func LoadEtalon() {
 	f, err := os.Open("etalon.txt")

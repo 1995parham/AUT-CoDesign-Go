@@ -15,7 +15,7 @@ import (
 
 type Kromosom struct {
 	Gen     [16]int
-	Fitness uint64
+	Fitness int64
 }
 
 func (k *Kromosom) Permute() string {
@@ -29,7 +29,7 @@ func (k *Kromosom) Permute() string {
 }
 
 func (k *Kromosom) CalculateFitness(s string) {
-	var T [27][27]uint64
+	var T [27][27]int64
 
 	k.Fitness = 0
 
@@ -53,7 +53,7 @@ func (k *Kromosom) CalculateFitness(s string) {
 
 	for i := 0; i < 27; i++ {
 		for j := 0; j < 27; j++ {
-			tmp := (T[i][j] * (0x10000 / uint64(len(RefText)))) - E[i][j]
+			tmp := T[i][j]*0x10000 - int64(len(RefText))*E[i][j]
 
 			if tmp > 0 {
 				k.Fitness += tmp
