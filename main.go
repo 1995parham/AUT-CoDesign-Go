@@ -27,7 +27,7 @@ func main() {
 	}
 
 	n := 0
-	buf := make([]byte, 128)
+	input := make([]byte, 128)
 
 	/* Initiate LFSRs */
 	dlfsr81 = NewDummyLFSR8()
@@ -36,34 +36,34 @@ func main() {
 
 	/* Read seed number 1 */
 	var s1 uint8
-	n, err = s.Read(buf)
+	n, err = s.Read(input)
 	if err != nil {
 		log.Fatal(err)
 	}
 	if n != 1 {
 		log.Fatal("We get more than one byte :(")
 	}
-	s1 = uint8(buf[0])
+	s1 = uint8(input[0])
 	log.Printf("%d", s1)
 	dlfsr81.Init(0, s1)
 
 	/* Read seed number 2 */
 	var s2 uint8
-	n, err = s.Read(buf)
+	n, err = s.Read(input)
 	if err != nil {
 		log.Fatal(err)
 	}
-	s2 = uint8(buf[0])
+	s2 = uint8(input[0])
 	log.Printf("%d", s2)
 	dlfsr82.Init(0, s2)
 
 	/* Read seed number 3 */
 	var s3 uint8
-	n, err = s.Read(buf)
+	n, err = s.Read(input)
 	if err != nil {
 		log.Fatal(err)
 	}
-	s3 = uint8(buf[0])
+	s3 = uint8(input[0])
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
 
@@ -83,14 +83,13 @@ func main() {
 	}
 	p.HalfNext()
 
+	output := make([]byte, 16)
 	for i := 0; i < 16; i++ {
-		var b [1]byte
-
-		b[0] = uint8(p.Kromosoms[31].Gen[i])
-
-		_, err := s.Write(b[:])
-		if err != nil {
-			panic(err)
-		}
+		output[i] = uint8(p.Kromosoms[31].Gen[i])
 	}
+	_, err = s.Write(output)
+	if err != nil {
+		panic(err)
+	}
+	s.Close()
 }
