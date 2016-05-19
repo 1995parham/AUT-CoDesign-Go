@@ -67,8 +67,8 @@ func main() {
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
 
-	/* Load refrence text */
-	LoadRefText()
+	/* Load refrence text from file :) */
+	// LoadRefText()
 
 	/* Load etalon array */
 	LoadEtalon()
