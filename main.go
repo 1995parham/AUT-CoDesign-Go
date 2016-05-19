@@ -64,6 +64,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	if n != 1 {
+		log.Fatal("We get more than one byte :(")
+	}
 	s2 = uint8(input[0])
 	log.Printf("%d", s2)
 	dlfsr82.Init(0, s2)
@@ -73,6 +76,9 @@ func main() {
 	n, err = s.Read(input)
 	if err != nil {
 		log.Fatal(err)
+	}
+	if n != 1 {
+		log.Fatal("We get more than one byte :(")
 	}
 	s3 = uint8(input[0])
 	log.Printf("%d", s3)
