@@ -16,6 +16,17 @@ import (
 )
 
 func main() {
+	/* Load refrence text from file :) */
+	LoadRefText()
+
+	/* Load etalon array */
+	LoadEtalon()
+
+	/* Build population with first generation from keys.txt file */
+	p := NewPopulationFromFile()
+
+	log.Printf("We are setup :D")
+
 	c := &serial.Config{Name: "/dev/tnt0", Baud: 9600}
 	c.Parity = serial.ParityNone
 	c.StopBits = serial.Stop1
@@ -66,15 +77,6 @@ func main() {
 	s3 = uint8(input[0])
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
-
-	/* Load refrence text from file :) */
-	// LoadRefText()
-
-	/* Load etalon array */
-	LoadEtalon()
-
-	/* Build population with first generation from keys.txt file */
-	p := NewPopulationFromFile()
 
 	p.Report()
 
