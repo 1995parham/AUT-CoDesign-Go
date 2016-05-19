@@ -70,6 +70,25 @@ func (p *Population) Next() {
 	p.Generation++
 }
 
+func (p *Population) HalfNext() {
+	var w sync.WaitGroup
+	for i := 0; i < 32; i++ {
+		w.Add(1)
+		go func(i int) {
+			str := p.Kromosoms[i].Permute()
+			p.Kromosoms[i].CalculateFitness(str)
+			w.Done()
+		}(i)
+	}
+	w.Wait()
+
+	sort.Sort(p)
+
+	p.Report()
+
+	p.Generation++
+}
+
 func (p *Population) Report() {
 	log.Printf("==== %d ====", p.Generation)
 	for i := 0; i < 32; i++ {
