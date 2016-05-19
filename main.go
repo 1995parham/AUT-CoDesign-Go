@@ -67,15 +67,30 @@ func main() {
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
 
+	/* Load refrence text */
 	LoadRefText()
 
+	/* Load etalon array */
 	LoadEtalon()
 
+	/* Build population with first generation from keys.txt file */
 	p := NewPopulationFromFile()
 
 	p.Report()
 
-	for i := 0; i < 2; i++ {
+	for i := 0; i < 29; i++ {
 		p.Next()
+	}
+	p.HalfNext()
+
+	for i := 0; i < 16; i++ {
+		var b [1]byte
+
+		b[0] = uint8(p.Kromosoms[31].Gen[i])
+
+		_, err := s.Write(b[:])
+		if err != nil {
+			panic(err)
+		}
 	}
 }
