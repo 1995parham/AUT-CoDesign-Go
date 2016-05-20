@@ -71,7 +71,7 @@ func (k *Kromosom) Mutate(indicator uint8) {
 	k.Gen[a], k.Gen[b] = k.Gen[b], k.Gen[a]
 }
 
-func Crossover(k1 *Kromosom, k2 *Kromosom, alpah uint8) (Kromosom, Kromosom) {
+func Crossover(k1 *Kromosom, k2 *Kromosom, alpha uint8) (Kromosom, Kromosom) {
 	var d1 Kromosom = Kromosom{}
 	var d2 Kromosom = Kromosom{}
 
