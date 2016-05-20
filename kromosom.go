@@ -64,33 +64,20 @@ func (k *Kromosom) CalculateFitness(s string) {
 	}
 }
 
-func (k *Kromosom) Mutate() {
-	/* Get p from LFSR2 */
-	var p uint8
-	p = dlfsr82.Next()
+func (k *Kromosom) Mutate(indicator uint8) {
+	a := indicator & 0x0F
+	b := indicator >> 4
 
-	if p < 64 {
-		/* Get indicator from LFSR3 */
-		var indicator uint8
-		indicator = dlfsr83.Next()
-
-		a := indicator & 0x0F
-		b := indicator >> 4
-
-		k.Gen[a], k.Gen[b] = k.Gen[b], k.Gen[a]
-	}
+	k.Gen[a], k.Gen[b] = k.Gen[b], k.Gen[a]
 }
 
-func Crossover(k1 *Kromosom, k2 *Kromosom) (Kromosom, Kromosom) {
+func Crossover(k1 *Kromosom, k2 *Kromosom, alpah uint8) (Kromosom, Kromosom) {
 	var d1 Kromosom = Kromosom{}
 	var d2 Kromosom = Kromosom{}
 
 	var d1i [16]bool
 	var d2i [16]bool
 
-	var alpha uint8
-	/* Get alpha from LFSR1 */
-	alpha = dlfsr81.Next()
 	alpha = alpha & 0x0F
 
 	for i := 0; i < int(alpha); i++ {
