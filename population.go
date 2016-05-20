@@ -11,6 +11,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/1995parham/LFSR-Go"
 	"log"
 	"os"
 	"sort"
@@ -23,11 +24,11 @@ type Population struct {
 	/* Current generation index */
 	Generation int
 	/* Crossover alpha LFSR */
-	dlfsr81 LFSR8
+	dlfsr81 lfsr.LFSR8
 	/* Mutate portability LFSR */
-	dlfsr82 LFSR8
+	dlfsr82 lfsr.LFSR8
 	/* Mutate indicator LFSR */
-	dlfsr83 LFSR8
+	dlfsr83 lfsr.LFSR8
 }
 
 func (p *Population) Len() int {
@@ -53,13 +54,13 @@ func (p *Population) Crossover() {
 }
 
 func (p *Population) Mutate() {
-	var p uint8
+	var mp uint8
 	var indicator uint8
 
 	for i := 0; i < 32; i++ {
 		/* Get p from LFSR2 */
-		p = p.dlfsr82.Next()
-		if p < 64 {
+		mp = p.dlfsr82.Next()
+		if mp < 64 {
 			/* Get indicator from LFSR3 */
 			indicator = p.dlfsr83.Next()
 			p.Kromosoms[i].Mutate(indicator)
