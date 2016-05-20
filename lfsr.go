@@ -9,18 +9,15 @@
  */
 package main
 
-var dlfsr81, dlfsr82, dlfsr83 LFSR8
-
-type LFSR8 interface {
-	Init(poly uint8, seed uint8)
-	Next() uint8
-}
+import (
+	"github.com/1995parham/LFSR-Go"
+)
 
 type dlfsr8 struct {
 	data uint8
 }
 
-func NewDummyLFSR8() LFSR8 {
+func NewDummyLFSR8() lfsr.LFSR8 {
 	return &dlfsr8{}
 }
 
