@@ -45,7 +45,7 @@ func main() {
 	dlfsr82 = NewDummyLFSR8()
 	dlfsr83 = NewDummyLFSR8()
 
-	/* Read seed number 1 */
+	/* Read seed number 1 from serial */
 	var s1 uint8
 	n, err = s.Read(input)
 	if err != nil {
@@ -58,7 +58,7 @@ func main() {
 	log.Printf("%d", s1)
 	dlfsr81.Init(0, s1)
 
-	/* Read seed number 2 */
+	/* Read seed number 2 from serial */
 	var s2 uint8
 	n, err = s.Read(input)
 	if err != nil {
@@ -71,7 +71,7 @@ func main() {
 	log.Printf("%d", s2)
 	dlfsr82.Init(0, s2)
 
-	/* Read seed number 3 */
+	/* Read seed number 3 from serial */
 	var s3 uint8
 	n, err = s.Read(input)
 	if err != nil {
@@ -84,6 +84,7 @@ func main() {
 	log.Printf("%d", s3)
 	dlfsr83.Init(0, s3)
 
+	/* Report first generation that read from file */
 	p.Report()
 
 	for i := 0; i < 29; i++ {
