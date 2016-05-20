@@ -18,8 +18,16 @@ import (
 )
 
 type Population struct {
-	Kromosoms  [32]Kromosom
+	/* Population kromosoms */
+	Kromosoms [32]Kromosom
+	/* Current generation index */
 	Generation int
+	/* Crossover alpha LFSR */
+	dlfsr81 LFSR8
+	/* Mutate portability LFSR */
+	dlfsr82 LFSR8
+	/* Mutate indicator LFSR */
+	dlfsr83 LFSR8
 }
 
 func (p *Population) Len() int {
@@ -36,15 +44,26 @@ func (p *Population) Less(i, j int) bool {
 }
 
 func (p *Population) Crossover() {
+	var alpha uint8
 	for i := 0; i < 16; i += 2 {
+		alpha = p.dlfsr81.Next()
 		p.Kromosoms[i+16], p.Kromosoms[i+16+1] =
-			Crossover(&p.Kromosoms[i], &p.Kromosoms[i+1])
+			Crossover(&p.Kromosoms[i], &p.Kromosoms[i+1], alpha)
 	}
 }
 
 func (p *Population) Mutate() {
+	var p uint8
+	var indicator uint8
+
 	for i := 0; i < 32; i++ {
-		p.Kromosoms[i].Mutate()
+		/* Get p from LFSR2 */
+		p = p.dlfsr82.Next()
+		if p < 64 {
+			/* Get indicator from LFSR3 */
+			indicator = p.dlfsr83.Next()
+			p.Kromosoms[i].Mutate(indicator)
+		}
 	}
 }
 
